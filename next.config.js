@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
   },
+  basePath: '/100th-invitation',
+  assetPrefix: '/100th-invitation/',
   compiler: {
     styledComponents: true,
-  },
-  images: {
-    domains: [],
-    formats: ['image/webp', 'image/avif'],
   },
 }
 
