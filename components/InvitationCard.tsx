@@ -367,7 +367,7 @@ const InvitationCard: React.FC = () => {
                 transition={{ delay: 0.3 }}
               >
                 <WindowImage
-                  src="/images/main.png"
+                  src="/100th-invitation/images/main.png"
                   alt="백설하 아기 사진"
                   width={300}
                   height={300}

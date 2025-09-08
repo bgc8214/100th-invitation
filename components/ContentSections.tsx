@@ -277,12 +277,12 @@ const ContentSections: React.FC = () => {
   }, []);
 
   const galleryImages = [
-    { src: '/images/gallery1.png', alt: '백설하 사진 1' },
-    { src: '/images/gallery2.png', alt: '백설하 사진 2' },
-    { src: '/images/gallery3.png', alt: '백설하 사진 3' },
-    { src: '/images/gallery4.png', alt: '백설하 사진 4' },
-    { src: '/images/gallery5.png', alt: '백설하 사진 5' },
-    { src: '/images/gallery6.png', alt: '백설하 사진 6' },
+    { src: '/100th-invitation/images/gallery1.png', alt: '백설하 사진 1' },
+    { src: '/100th-invitation/images/gallery2.png', alt: '백설하 사진 2' },
+    { src: '/100th-invitation/images/gallery3.png', alt: '백설하 사진 3' },
+    { src: '/100th-invitation/images/gallery4.png', alt: '백설하 사진 4' },
+    { src: '/100th-invitation/images/gallery5.png', alt: '백설하 사진 5' },
+    { src: '/100th-invitation/images/gallery6.png', alt: '백설하 사진 6' },
   ];
 
   const calendarDates = [
