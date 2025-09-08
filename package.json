@@ -1,0 +1,37 @@
+{
+  "name": "seolha-100day-invitation",
+  "version": "1.0.0",
+  "description": "백설하 100일 잔치 초대장",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "framer-motion": "^10.16.0",
+    "styled-components": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "invitation",
+    "baby",
+    "100days",
+    "react",
+    "nextjs"
+  ],
+  "author": "Seolha Family",
+  "license": "MIT"
+}
+
