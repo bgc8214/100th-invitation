@@ -70,6 +70,8 @@ export default function Home() {
   const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
+    if (typeof window === 'undefined') return // 서버사이드에서는 실행하지 않음
+    
     const handleScroll = () => {
       if (isAnimating) return // 애니메이션 중일 때는 스크롤 무시
       
@@ -125,7 +127,7 @@ export default function Home() {
       <MainScreen 
         style={{ 
           display: scrollProgress >= 1 ? 'none' : 'flex', // 완전히 끝난 후에만 숨김
-          y: -scrollProgress * window.innerHeight, // 화면 전체 높이만큼 위로 올라감
+          y: typeof window !== 'undefined' ? -scrollProgress * window.innerHeight : -scrollProgress * 800, // 화면 전체 높이만큼 위로 올라감
           opacity: scrollProgress < 0.3 ? 1 : 1 - ((scrollProgress - 0.3) / 0.7), // 30% 진행 후 투명화 시작
         }}
         transition={{ duration: 0 }} // 스크롤과 동기화를 위해 transition 제거
