@@ -20,17 +20,15 @@ const HeroSection = styled.section`
   position: relative;
   height: 100%;
   
-  /* 모바일 최적화 */
+  /* 모바일 최적화 - 범용적 패딩 */
   @media (max-width: 768px) {
-    padding: 20px 15px;
+    padding: 2vh 15px;
+    min-height: 0;
   }
   
   @media (max-width: 480px) {
-    padding: 15px 10px;
-  }
-  
-  @media (max-height: 700px) {
-    padding: 10px 15px;
+    padding: 1.5vh 10px;
+    min-height: 0;
   }
 `
 
@@ -39,9 +37,16 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
-  height: 100%;
+  min-height: 100%;
+  
+  /* 모바일 최적화 - 유연한 높이 */
+  @media (max-width: 768px) {
+    justify-content: space-evenly;
+    min-height: 0;
+    height: 100%;
+  }
 `
 
 /* 상단 섹션 - 1st birthday */
@@ -53,15 +58,10 @@ const TopSection = styled(motion.div)`
   margin-bottom: 20px;
   margin-top: 20px;
   
-  /* 모바일 최적화 */
+  /* 모바일 최적화 - 범용적 마진 */
   @media (max-width: 768px) {
-    margin-bottom: 15px;
-    margin-top: 15px;
-  }
-  
-  @media (max-height: 700px) {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
   }
 `
 
@@ -89,7 +89,7 @@ const LogoSection = styled(motion.div)`
   margin-bottom: 0px;
   
   /* 모바일 최적화 */
-  @media (max-height: 700px) {
+  @media (max-width: 768px) {
     margin-bottom: 0px;
   }
 `
@@ -98,20 +98,17 @@ const LogoImage = styled(Image)`
   object-fit: contain;
   border-radius: 8px;
   
-  /* 모바일 최적화 - 로고 크기 1.3배 증가 */
+  /* 모바일 최적화 - 반응형 로고 크기 */
   @media (max-width: 768px) {
-    width: 338px !important;
-    height: 169px !important;
+    width: min(85vw, 400px) !important;
+    height: auto !important;
+    max-height: 25vh;
   }
   
   @media (max-width: 480px) {
-    width: 312px !important;
-    height: 156px !important;
-  }
-  
-  @media (max-height: 700px) {
-    width: 286px !important;
-    height: 143px !important;
+    width: min(80vw, 350px) !important;
+    height: auto !important;
+    max-height: 22vh;
   }
 `
 
@@ -302,14 +299,9 @@ const BottomSection = styled(motion.div)`
   gap: 8px;
   margin-bottom: 20px;
   
-  /* 모바일 최적화 */
+  /* 모바일 최적화 - 범용적 마진 */
   @media (max-width: 768px) {
-    margin-bottom: 15px;
-    gap: 6px;
-  }
-  
-  @media (max-height: 700px) {
-    margin-bottom: 10px;
+    margin-bottom: 1vh;
     gap: 4px;
   }
 `

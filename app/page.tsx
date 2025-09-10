@@ -45,6 +45,15 @@ const MainCardContainer = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  
+  /* 모바일 최적화 - 패딩을 고려한 높이 조정 */
+  @media (max-width: 768px) {
+    border-radius: 15px;
+  }
+  
+  @media (max-width: 480px) {
+    border-radius: 10px;
+  }
 `
 
 const ContentScreen = styled.div`
