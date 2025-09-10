@@ -1,48 +1,32 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { motion, AnimatePresence } from 'framer-motion'
 import InvitationCard from '@/components/InvitationCard'
 import ContentSections from '@/components/ContentSections'
 
 const PageContainer = styled.div`
-  height: 100vh;
-  height: 100dvh; /* 동적 뷰포트 높이 사용 */
-  overflow: hidden;
-  position: relative;
-  
-  /* 모바일 터치 스크롤 지원 */
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
-  
-  /* 모바일에서 스크롤 가능하도록 설정 */
-  @media (max-width: 768px) {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    height: 100vh;
-    height: 100dvh;
-  }
+  scroll-behavior: smooth;
 `
 
-const MainScreen = styled(motion.div)`
+const MainScreen = styled.div`
+  width: 100%;
   height: 100vh;
   height: 100dvh;
   background: linear-gradient(180deg, #f8f9ff 0%, #f0f8ff 100%);
   padding: 20px;
   display: flex;
   align-items: stretch;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 2;
   
   /* 모바일 최적화 */
   @media (max-width: 768px) {
     padding: 10px;
-    height: 100vh;
-    height: 100dvh;
   }
   
   @media (max-width: 480px) {
@@ -64,23 +48,17 @@ const MainCardContainer = styled.div`
 `
 
 const ContentScreen = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(180deg, #f8f9ff 0%, #f0f8ff 100%);
   padding: 20px;
   display: flex;
   align-items: stretch;
-  z-index: 1;
   
   /* 모바일 최적화 */
   @media (max-width: 768px) {
     padding: 10px;
-    height: 100vh;
-    height: 100dvh;
   }
   
   @media (max-width: 480px) {
@@ -91,20 +69,17 @@ const ContentScreen = styled.div`
 const ContentContainer = styled.div`
   max-width: 400px;
   width: 100%;
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
   background: white;
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(168, 216, 234, 0.2);
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   
   /* 모바일 최적화 */
   @media (max-width: 768px) {
-    height: 100vh;
-    height: 100dvh;
     border-radius: 15px;
   }
   
@@ -115,122 +90,21 @@ const ContentContainer = styled.div`
 
 
 export default function Home() {
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return // 서버사이드에서는 실행하지 않음
-    
-    const handleScroll = () => {
-      if (isAnimating) return // 애니메이션 중일 때는 스크롤 무시
-      
-      const scrollY = window.scrollY
-      const windowHeight = window.innerHeight
-      const triggerHeight = windowHeight * 0.1 // 화면 높이의 10%만 스크롤하면 트리거
-      
-      // 트리거 지점을 넘으면 자동 완성 애니메이션 시작
-      if (scrollY >= triggerHeight && scrollProgress < 1) {
-        setIsAnimating(true)
-        
-        // 자동으로 완전히 올라가는 애니메이션 (속도 감소)
-        let progress = scrollY / windowHeight
-        const animate = () => {
-          progress += 0.02 // 애니메이션 속도 감소 (0.05 → 0.02)
-          setScrollProgress(Math.min(progress, 1))
-          
-          if (progress >= 1) {
-            setIsAnimating(false)
-          } else {
-            requestAnimationFrame(animate)
-          }
-        }
-        requestAnimationFrame(animate)
-      } else if (scrollY < triggerHeight && !isAnimating) {
-        // 트리거 지점 아래로 내려가면 원래대로
-        const progress = scrollY / windowHeight
-        setScrollProgress(progress)
-      }
-    }
-
-    // 터치 이벤트 처리 (모바일 스와이프 감지)
-    let touchStartY = 0
-    let touchStartTime = 0
-    
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY
-      touchStartTime = Date.now()
-    }
-    
-    const handleTouchMove = (e: TouchEvent) => {
-      if (scrollProgress >= 1) {
-        const contentContainer = document.querySelector('[data-content-container]') as HTMLElement
-        if (contentContainer && contentContainer.scrollTop === 0) {
-          const touchCurrentY = e.touches[0].clientY
-          const touchDiff = touchCurrentY - touchStartY
-          const touchTime = Date.now() - touchStartTime
-          
-          // 위로 스와이프하고 있고, 충분한 거리와 속도인 경우
-          if (touchDiff > 50 && touchTime < 300) {
-            e.preventDefault()
-            setScrollProgress(0.8) // 첫 번째 페이지로 돌아가기 시작
-            setIsAnimating(true)
-            
-            let progress = 0.8
-            const animate = () => {
-              progress -= 0.05
-              setScrollProgress(Math.max(progress, 0))
-              
-              if (progress <= 0) {
-                setIsAnimating(false)
-                document.body.style.height = '200vh'
-                window.scrollTo(0, 0)
-              } else {
-                requestAnimationFrame(animate)
-              }
-            }
-            requestAnimationFrame(animate)
-          }
-        }
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('touchstart', handleTouchStart, { passive: true })
-    window.addEventListener('touchmove', handleTouchMove, { passive: false })
-    
-    // 스크롤 가능하도록 설정
-    document.body.style.height = '200vh'
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('touchstart', handleTouchStart)
-      window.removeEventListener('touchmove', handleTouchMove)
-      document.body.style.height = 'auto'
-    }
-  }, [scrollProgress, isAnimating])
-
   return (
     <PageContainer>
-      {/* 두 번째 화면 - 항상 뒤에 깔려있음 */}
-      <ContentScreen style={{ display: 'flex' }}>
-        <ContentContainer data-content-container>
-          <ContentSections />
-        </ContentContainer>
-      </ContentScreen>
-
-      {/* 첫 번째 화면 - 올라가면서 동시에 투명해짐 */}
-      <MainScreen 
-        style={{ 
-          display: scrollProgress >= 1 ? 'none' : 'flex', // 완전히 끝난 후에만 숨김
-          y: typeof window !== 'undefined' ? -scrollProgress * window.innerHeight : -scrollProgress * 800, // 화면 전체 높이만큼 위로 올라감
-          opacity: scrollProgress < 0.3 ? 1 : 1 - ((scrollProgress - 0.3) / 0.7), // 30% 진행 후 투명화 시작
-        }}
-        transition={{ duration: 0 }} // 스크롤과 동기화를 위해 transition 제거
-      >
+      {/* 첫 번째 화면 - 초대장 */}
+      <MainScreen>
         <MainCardContainer>
           <InvitationCard />
         </MainCardContainer>
       </MainScreen>
+
+      {/* 두 번째 화면 - 상세 정보 */}
+      <ContentScreen>
+        <ContentContainer>
+          <ContentSections />
+        </ContentContainer>
+      </ContentScreen>
     </PageContainer>
   )
 }
