@@ -41,11 +41,22 @@ const ContentWrapper = styled.div`
   position: relative;
   min-height: 100%;
   
-  /* 모바일 최적화 - 유연한 높이 */
+  /* 모바일 최적화 - 브라우저 바 고려한 유연한 높이 */
   @media (max-width: 768px) {
-    justify-content: space-evenly;
+    justify-content: space-around;
     min-height: 0;
     height: 100%;
+    gap: min(2vh, 8px);
+  }
+  
+  @media (max-width: 480px) {
+    gap: min(1.5vh, 6px);
+  }
+  
+  /* 매우 작은 높이에서 더 압축 */
+  @media (max-height: 700px) and (max-width: 768px) {
+    gap: min(1vh, 4px);
+    justify-content: space-around;
   }
 `
 
@@ -57,11 +68,23 @@ const TopSection = styled(motion.div)`
   width: 100%;
   margin-bottom: 20px;
   margin-top: 20px;
+  flex-shrink: 0;
   
-  /* 모바일 최적화 - 범용적 마진 */
+  /* 모바일 최적화 - 브라우저 바 고려한 마진 */
   @media (max-width: 768px) {
-    margin-bottom: 1vh;
-    margin-top: 1vh;
+    margin-bottom: min(1vh, 8px);
+    margin-top: min(1vh, 8px);
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: min(0.8vh, 6px);
+    margin-top: min(0.8vh, 6px);
+  }
+  
+  /* 매우 작은 높이에서 마진 최소화 */
+  @media (max-height: 700px) and (max-width: 768px) {
+    margin-bottom: min(0.5vh, 4px);
+    margin-top: min(0.5vh, 4px);
   }
 `
 
@@ -87,6 +110,7 @@ const LogoSection = styled(motion.div)`
   justify-content: center;
   align-items: center;
   margin-bottom: 0px;
+  flex-shrink: 0;
   
   /* 모바일 최적화 */
   @media (max-width: 768px) {
@@ -121,6 +145,17 @@ const MainSection = styled.div`
   position: relative;
   margin-bottom: 5px;
   width: 100%;
+  flex-shrink: 1;
+  min-height: 0;
+  
+  /* 모바일 최적화 - 유연한 마진 */
+  @media (max-width: 768px) {
+    margin-bottom: min(1vh, 4px);
+  }
+  
+  @media (max-height: 700px) and (max-width: 768px) {
+    margin-bottom: min(0.5vh, 2px);
+  }
 `
 
 const ImageTextContainer = styled(motion.div)`
@@ -298,11 +333,23 @@ const BottomSection = styled(motion.div)`
   align-items: center;
   gap: 8px;
   margin-bottom: 20px;
+  flex-shrink: 0;
   
-  /* 모바일 최적화 - 범용적 마진 */
+  /* 모바일 최적화 - 브라우저 바 고려한 마진 */
   @media (max-width: 768px) {
-    margin-bottom: 1vh;
-    gap: 4px;
+    margin-bottom: min(1vh, 8px);
+    gap: min(1vh, 4px);
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: min(0.8vh, 6px);
+    gap: min(0.8vh, 3px);
+  }
+  
+  /* 매우 작은 높이에서 마진 최소화 */
+  @media (max-height: 700px) and (max-width: 768px) {
+    margin-bottom: min(0.5vh, 4px);
+    gap: min(0.5vh, 2px);
   }
 `
 
