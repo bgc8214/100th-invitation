@@ -8,6 +8,7 @@ import ContentSections from '@/components/ContentSections'
 
 const PageContainer = styled.div`
   height: 100vh;
+  height: 100dvh; /* 동적 뷰포트 높이 사용 */
   overflow: hidden;
   position: relative;
   
@@ -19,11 +20,14 @@ const PageContainer = styled.div`
   @media (max-width: 768px) {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    height: 100dvh;
   }
 `
 
 const MainScreen = styled(motion.div)`
   height: 100vh;
+  height: 100dvh;
   background: linear-gradient(180deg, #f8f9ff 0%, #f0f8ff 100%);
   padding: 20px;
   display: flex;
@@ -33,6 +37,17 @@ const MainScreen = styled(motion.div)`
   top: 0;
   left: 0;
   z-index: 2;
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    padding: 10px;
+    height: 100vh;
+    height: 100dvh;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 5px;
+  }
 `
 
 const MainCardContainer = styled.div`
@@ -54,17 +69,30 @@ const ContentScreen = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   background: linear-gradient(180deg, #f8f9ff 0%, #f0f8ff 100%);
   padding: 20px;
   display: flex;
   align-items: stretch;
   z-index: 1;
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    padding: 10px;
+    height: 100vh;
+    height: 100dvh;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 5px;
+  }
 `
 
 const ContentContainer = styled.div`
   max-width: 400px;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   margin: 0 auto;
   background: white;
   border-radius: 20px;
@@ -72,6 +100,17 @@ const ContentContainer = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    height: 100vh;
+    height: 100dvh;
+    border-radius: 15px;
+  }
+  
+  @media (max-width: 480px) {
+    border-radius: 10px;
+  }
 `
 
 
@@ -113,13 +152,59 @@ export default function Home() {
       }
     }
 
+    // 터치 이벤트 처리 (모바일 스와이프 감지)
+    let touchStartY = 0
+    let touchStartTime = 0
+    
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY
+      touchStartTime = Date.now()
+    }
+    
+    const handleTouchMove = (e: TouchEvent) => {
+      if (scrollProgress >= 1) {
+        const contentContainer = document.querySelector('[data-content-container]') as HTMLElement
+        if (contentContainer && contentContainer.scrollTop === 0) {
+          const touchCurrentY = e.touches[0].clientY
+          const touchDiff = touchCurrentY - touchStartY
+          const touchTime = Date.now() - touchStartTime
+          
+          // 위로 스와이프하고 있고, 충분한 거리와 속도인 경우
+          if (touchDiff > 50 && touchTime < 300) {
+            e.preventDefault()
+            setScrollProgress(0.8) // 첫 번째 페이지로 돌아가기 시작
+            setIsAnimating(true)
+            
+            let progress = 0.8
+            const animate = () => {
+              progress -= 0.05
+              setScrollProgress(Math.max(progress, 0))
+              
+              if (progress <= 0) {
+                setIsAnimating(false)
+                document.body.style.height = '200vh'
+                window.scrollTo(0, 0)
+              } else {
+                requestAnimationFrame(animate)
+              }
+            }
+            requestAnimationFrame(animate)
+          }
+        }
+      }
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: false })
     
     // 스크롤 가능하도록 설정
     document.body.style.height = '200vh'
     
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchmove', handleTouchMove)
       document.body.style.height = 'auto'
     }
   }, [scrollProgress, isAnimating])
@@ -128,7 +213,7 @@ export default function Home() {
     <PageContainer>
       {/* 두 번째 화면 - 항상 뒤에 깔려있음 */}
       <ContentScreen style={{ display: 'flex' }}>
-        <ContentContainer>
+        <ContentContainer data-content-container>
           <ContentSections />
         </ContentContainer>
       </ContentScreen>

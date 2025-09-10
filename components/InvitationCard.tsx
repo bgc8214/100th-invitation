@@ -19,6 +19,19 @@ const HeroSection = styled.section`
   padding: 40px 30px;
   position: relative;
   height: 100%;
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    padding: 20px 15px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 15px 10px;
+  }
+  
+  @media (max-height: 700px) {
+    padding: 10px 15px;
+  }
 `
 
 const ContentWrapper = styled.div`
@@ -39,6 +52,17 @@ const TopSection = styled(motion.div)`
   width: 100%;
   margin-bottom: 20px;
   margin-top: 20px;
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+  
+  @media (max-height: 700px) {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
 `
 
 const TopLine = styled.div`
@@ -63,11 +87,32 @@ const LogoSection = styled(motion.div)`
   justify-content: center;
   align-items: center;
   margin-bottom: 0px;
+  
+  /* 모바일 최적화 */
+  @media (max-height: 700px) {
+    margin-bottom: 0px;
+  }
 `
 
 const LogoImage = styled(Image)`
   object-fit: contain;
   border-radius: 8px;
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    width: 200px !important;
+    height: 100px !important;
+  }
+  
+  @media (max-width: 480px) {
+    width: 180px !important;
+    height: 90px !important;
+  }
+  
+  @media (max-height: 700px) {
+    width: 160px !important;
+    height: 80px !important;
+  }
 `
 
 /* 메인 섹션 - 이미지와 텍스트 */
@@ -210,6 +255,22 @@ const MainImageContainer = styled(motion.div)`
   justify-content: center;
   border-radius: 20px;
   overflow: hidden;
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 250px;
+  }
+  
+  @media (max-width: 480px) {
+    width: 180px;
+    height: 220px;
+  }
+  
+  @media (max-height: 700px) {
+    width: 180px;
+    height: 220px;
+  }
 `
 
 const MainImage = styled(Image)`
@@ -240,6 +301,17 @@ const BottomSection = styled(motion.div)`
   align-items: center;
   gap: 8px;
   margin-bottom: 20px;
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+    gap: 6px;
+  }
+  
+  @media (max-height: 700px) {
+    margin-bottom: 10px;
+    gap: 4px;
+  }
 `
 
 const StarDecoration = styled(motion.div)`

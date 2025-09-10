@@ -306,7 +306,7 @@ const ContentSections: React.FC = () => {
       >
         <SectionTitle>초대합니다 ❤️</SectionTitle>
         <MessageContent>
-          <p>설하 무럭무럭 자라</p>
+          <p>설하가 무럭무럭 자라</p>
           <p>어느덧 100일을 맞이하였습니다.</p>
           <p>사랑과 관심으로 지켜봐주신 소중한 분들께</p>
           <p>감사의 마음으로 작은 자리를 마련하였습니다.</p>
