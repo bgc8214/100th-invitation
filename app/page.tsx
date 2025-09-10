@@ -10,6 +10,16 @@ const PageContainer = styled.div`
   height: 100vh;
   overflow: hidden;
   position: relative;
+  
+  /* 모바일 터치 스크롤 지원 */
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  
+  /* 모바일에서 스크롤 가능하도록 설정 */
+  @media (max-width: 768px) {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 `
 
 const MainScreen = styled(motion.div)`

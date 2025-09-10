@@ -37,13 +37,13 @@ const TopSection = styled(motion.div)`
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: 40px;
-  margin-top: 40px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 `
 
 const TopLine = styled.div`
   height: 1px;
-  background: #a8d8ea;
+  background: #e20e73;
   flex: 1;
   max-width: 120px;
 `
@@ -52,10 +52,22 @@ const BirthdaySubtitle = styled.h1`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1.1rem;
   font-weight: 300;
-  color: #a8d8ea;
+  color: #e20e73;
   letter-spacing: 2px;
   margin: 0 20px;
   white-space: nowrap;
+`
+
+const LogoSection = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0px;
+`
+
+const LogoImage = styled(Image)`
+  object-fit: contain;
+  border-radius: 8px;
 `
 
 /* 메인 섹션 - 이미지와 텍스트 */
@@ -65,7 +77,7 @@ const MainSection = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 5px;
   width: 100%;
 `
 
@@ -98,7 +110,7 @@ const OvalFrame = styled(motion.div)`
   transform: translate(-50%, -50%);
   width: 320px;
   height: 160px;
-  border: 2px solid #a8d8ea;
+  border: 2px solid #e20e73;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -117,7 +129,7 @@ const Happy = styled(motion.span)`
   display: block;
   font-size: 3.4rem;
   font-weight: 300;
-  color: #a8d8ea;
+  color: #e20e73;
   margin-bottom: -8px;
   letter-spacing: 1px;
 `
@@ -126,7 +138,7 @@ const Birthday = styled(motion.span)`
   display: block;
   font-size: 3rem;
   font-weight: 300;
-  color: #a8d8ea;
+  color: #e20e73;
   letter-spacing: 1px;
 `
 
@@ -135,7 +147,7 @@ const SparkleTopLeft = styled(motion.div)`
   position: absolute;
   top: 30%;
   left: 15%;
-  color: #a8d8ea;
+  color: #e20e73;
   font-size: 1.5rem;
   z-index: 4;
 `
@@ -144,7 +156,7 @@ const SparkleTopRight = styled(motion.div)`
   position: absolute;
   top: 15%;
   right: 10%;
-  color: #a8d8ea;
+  color: #e20e73;
   font-size: 1.8rem;
   z-index: 4;
 `
@@ -153,7 +165,7 @@ const SparkleSmallRight = styled(motion.div)`
   position: absolute;
   top: 25%;
   right: 15%;
-  color: #a8d8ea;
+  color: #e20e73;
   font-size: 1.2rem;
   z-index: 4;
 `
@@ -163,7 +175,7 @@ const SparkleBottom = styled(motion.div)`
   bottom: 15%;
   left: 50%;
   transform: translateX(-50%);
-  color: #a8d8ea;
+  color: #e20e73;
   font-size: 1.4rem;
   z-index: 4;
 `
@@ -174,12 +186,10 @@ const CircularImageContainer = styled(motion.div)`
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 240px;
-  height: 240px;
+  width: 192px;
+  height: 192px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid rgba(168, 216, 234, 0.4);
-  box-shadow: 0 10px 30px rgba(168, 216, 234, 0.3);
   z-index: 2;
 `
 
@@ -190,32 +200,37 @@ const HeroImage = styled(Image)`
   object-position: center;
 `
 
-/* 아치형 창문 프레임 */
-const WindowFrame = styled(motion.div)`
+/* 메인 이미지 컨테이너 */
+const MainImageContainer = styled(motion.div)`
   position: relative;
-  width: 280px;
-  height: 360px;
-  overflow: hidden;
+  width: 224px;
+  height: 280px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 140px 140px 12px 12px;
+  border-radius: 20px;
+  overflow: hidden;
 `
 
-const WindowImage = styled(Image)`
+const MainImage = styled(Image)`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
-  border-radius: 140px 140px 12px 12px;
-`
+  border-radius: 20px;
+  animation: gentle-shake 3s ease-in-out infinite;
 
-const WindowBorder = styled.div`
-  /* 테두리 제거 - 빈 컴포넌트 */
-`
-
-const WindowCross = styled.div`
-  /* 가로선 제거 - 빈 컴포넌트 */
+  @keyframes gentle-shake {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-8deg);
+    }
+    75% {
+      transform: rotate(8deg);
+    }
+  }
 `
 
 /* 하단 섹션 - 이름과 정보 */
@@ -224,11 +239,11 @@ const BottomSection = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 `
 
 const StarDecoration = styled(motion.div)`
-  color: #a8d8ea;
+  color: #e20e73;
   font-size: 1.2rem;
 `
 
@@ -243,7 +258,7 @@ const BabyName = styled(motion.h2)`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1.3rem;
   font-weight: 400;
-  color: #a8d8ea;
+  color: #e20e73;
   margin: 0;
   letter-spacing: 1px;
 `
@@ -256,7 +271,7 @@ const EventInfo = styled.div`
 const DateText = styled(motion.p)`
   font-size: 1rem;
   font-weight: 400;
-  color: #a8d8ea;
+  color: #e20e73;
   margin: 0 0 4px 0;
   letter-spacing: 1px;
 `
@@ -264,7 +279,7 @@ const DateText = styled(motion.p)`
 const LocationText = styled(motion.p)`
   font-size: 0.9rem;
   font-weight: 300;
-  color: #a8d8ea;
+  color: #e20e73;
   margin: 0;
   letter-spacing: 0.5px;
 `
@@ -281,7 +296,7 @@ const ScrollIndicator = styled(motion.div)`
 
 const ScrollArrow = styled(motion.div)`
   font-size: 2rem;
-  color: #a8d8ea;
+  color: #e20e73;
   animation: bounce 2s infinite;
 
   @keyframes bounce {
@@ -336,6 +351,7 @@ const sparkleVariants = {
   }
 }
 
+
 const InvitationCard: React.FC = () => {
   return (
     <Container>
@@ -352,6 +368,21 @@ const InvitationCard: React.FC = () => {
             <TopLine />
           </TopSection>
 
+          {/* 로고 이미지 섹션 */}
+          <LogoSection
+            variants={itemVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <LogoImage
+              src={`${process.env.NODE_ENV === 'production' ? '/100th-invitation' : ''}/images/main_logo.png`}
+              alt="로고"
+              width={240}
+              height={120}
+              priority
+            />
+          </LogoSection>
+
           {/* 메인 이미지와 텍스트 오버레이 */}
           <MainSection>
             <ImageTextContainer
@@ -359,23 +390,21 @@ const InvitationCard: React.FC = () => {
               initial="hidden"
               animate="visible"
             >
-              {/* 창문형 프레임 */}
-              <WindowFrame
+              {/* 메인 이미지 */}
+              <MainImageContainer
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 0.3 }}
               >
-                <WindowImage
-                  src="/100th-invitation/images/main.png"
+                <MainImage
+                  src={`${process.env.NODE_ENV === 'production' ? '/100th-invitation' : ''}/images/main.png`}
                   alt="백설하 아기 사진"
                   width={300}
                   height={300}
                   priority
                 />
-                <WindowBorder />
-                <WindowCross />
-              </WindowFrame>
+              </MainImageContainer>
             </ImageTextContainer>
           </MainSection>
 

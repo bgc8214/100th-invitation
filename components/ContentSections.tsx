@@ -16,7 +16,7 @@ const SectionCard = styled(motion.div)`
   padding: 30px 0;
   width: 100%;
   margin: 0 auto;
-  border-bottom: 1px solid rgba(168, 216, 234, 0.1);
+  border-bottom: 1px solid rgba(226, 14, 115, 0.1);
   
   &:first-child {
     padding-top: 20px;
@@ -31,7 +31,7 @@ const SectionCard = styled(motion.div)`
 const SectionTitle = styled.h3`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1.2rem;
-  color: #a8d8ea;
+  color: #e20e73;
   margin-bottom: 20px;
   font-weight: 500;
   text-align: center;
@@ -57,7 +57,7 @@ const MessageContent = styled.div`
 const CountdownTitle = styled.h3`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1.2rem;
-  color: #a8d8ea;
+  color: #e20e73;
   margin-bottom: 20px;
   font-weight: 500;
   text-align: center;
@@ -117,7 +117,7 @@ const CountdownMessage = styled.p`
 const CalendarTitle = styled.h3`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1.2rem;
-  color: #a8d8ea;
+  color: #e20e73;
   margin-bottom: 15px;
   font-weight: 500;
   text-align: center;
@@ -142,7 +142,7 @@ const EventInfo = styled.div`
 
 const CalendarMonth = styled.h4`
   font-size: 2.5rem;
-  color: #a8d8ea;
+  color: #e20e73;
   margin-bottom: 20px;
   font-weight: 300;
   text-align: center;
@@ -185,7 +185,7 @@ const CalendarDates = styled.div`
     }
     
     &.event-date-highlight {
-      background: #a8d8ea;
+      background: #e20e73;
       color: white;
       font-weight: 700;
       border-radius: 50%;
@@ -197,7 +197,7 @@ const CalendarDates = styled.div`
 const GalleryTitle = styled.h3`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1.2rem;
-  color: #a8d8ea;
+  color: #e20e73;
   margin-bottom: 20px;
   font-weight: 500;
   text-align: center;
@@ -276,13 +276,15 @@ const ContentSections: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const basePath = process.env.NODE_ENV === 'production' ? '/100th-invitation' : '';
+  
   const galleryImages = [
-    { src: '/100th-invitation/images/gallery1.png', alt: '백설하 사진 1' },
-    { src: '/100th-invitation/images/gallery2.png', alt: '백설하 사진 2' },
-    { src: '/100th-invitation/images/gallery3.png', alt: '백설하 사진 3' },
-    { src: '/100th-invitation/images/gallery4.png', alt: '백설하 사진 4' },
-    { src: '/100th-invitation/images/gallery5.png', alt: '백설하 사진 5' },
-    { src: '/100th-invitation/images/gallery6.png', alt: '백설하 사진 6' },
+    { src: `${basePath}/images/gallery1.png`, alt: '백설하 사진 1' },
+    { src: `${basePath}/images/gallery2.png`, alt: '백설하 사진 2' },
+    { src: `${basePath}/images/gallery3.png`, alt: '백설하 사진 3' },
+    { src: `${basePath}/images/gallery4.png`, alt: '백설하 사진 4' },
+    { src: `${basePath}/images/gallery5.png`, alt: '백설하 사진 5' },
+    { src: `${basePath}/images/gallery6.png`, alt: '백설하 사진 6' },
   ];
 
   const calendarDates = [

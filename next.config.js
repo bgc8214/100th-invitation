@@ -5,8 +5,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '/100th-invitation',
-  assetPrefix: '/100th-invitation/',
+  // GitHub Pages용 설정 (프로덕션에서만 적용)
+  ...(process.env.NODE_ENV === 'production' && {
+    basePath: '/100th-invitation',
+    assetPrefix: '/100th-invitation/',
+  }),
   compiler: {
     styledComponents: true,
   },
