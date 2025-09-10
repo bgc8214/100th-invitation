@@ -98,20 +98,20 @@ const LogoImage = styled(Image)`
   object-fit: contain;
   border-radius: 8px;
   
-  /* 모바일 최적화 */
+  /* 모바일 최적화 - 로고 크기 1.3배 증가 */
   @media (max-width: 768px) {
-    width: 200px !important;
-    height: 100px !important;
+    width: 338px !important;
+    height: 169px !important;
   }
   
   @media (max-width: 480px) {
-    width: 180px !important;
-    height: 90px !important;
+    width: 312px !important;
+    height: 156px !important;
   }
   
   @media (max-height: 700px) {
-    width: 160px !important;
-    height: 80px !important;
+    width: 286px !important;
+    height: 143px !important;
   }
 `
 

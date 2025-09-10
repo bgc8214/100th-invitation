@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 
 const ContentContainer = styled.section`
@@ -127,24 +127,51 @@ const EventInfo = styled.div`
   margin-bottom: 30px;
   text-align: center;
   
-  .event-date {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 5px;
+  .event-schedule {
+    background: linear-gradient(135deg, #faf8fa 0%, #f5f2f5 100%);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(226, 14, 115, 0.05);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
   }
   
-  .event-location {
+  .time-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #b8336a;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  .time-icon {
     font-size: 1rem;
+  }
+  
+  .event-details {
+    font-size: 0.9rem;
     color: #666;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    font-weight: 400;
+  }
+  
+  .location {
+    font-size: 0.85rem;
+    color: #888;
+    font-style: normal;
   }
 `
 
 const CalendarMonth = styled.h4`
-  font-size: 2.5rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.2rem;
   color: #e20e73;
   margin-bottom: 20px;
-  font-weight: 300;
+  font-weight: 500;
   text-align: center;
 `
 
@@ -189,6 +216,13 @@ const CalendarDates = styled.div`
       color: white;
       font-weight: 700;
       border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: auto;
     }
   }
 `
@@ -238,6 +272,51 @@ const BottomSpacing = styled.div`
   background: transparent;
 `
 
+/* 이미지 모달 */
+const ImageModal = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+`
+
+const ModalImage = styled(motion.img)`
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+`
+
+const CloseButton = styled(motion.button)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  
+  &:hover {
+    background: white;
+  }
+`
+
 interface TimeLeft {
   days: number;
   hours: number;
@@ -252,6 +331,8 @@ const ContentSections: React.FC = () => {
     minutes: 0,
     seconds: 0
   });
+  
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const targetDate = new Date('2025-09-19T11:00:00').getTime();
@@ -304,7 +385,7 @@ const ContentSections: React.FC = () => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <SectionTitle>초대합니다 ❤️</SectionTitle>
+        <SectionTitle>초대합니다 💌</SectionTitle>
         <MessageContent>
           <p>설하가 무럭무럭 자라</p>
           <p>어느덧 100일을 맞이하였습니다.</p>
@@ -325,7 +406,7 @@ const ContentSections: React.FC = () => {
         transition={{ duration: 0.6, delay: 0.2 }}
         viewport={{ once: true }}
       >
-        <CountdownTitle>Save the Date</CountdownTitle>
+        <CountdownTitle>백일 잔치까지 남은 시간</CountdownTitle>
         <CountdownTimer>
           <TimeUnit
             initial={{ scale: 0 }}
@@ -379,10 +460,25 @@ const ContentSections: React.FC = () => {
         transition={{ duration: 0.6, delay: 0.4 }}
         viewport={{ once: true }}
       >
-        <CalendarTitle>100일 잔치 안내</CalendarTitle>
+        <CalendarTitle>백일 잔치 안내</CalendarTitle>
         <EventInfo>
-          <p className="event-date">2025년 9월 19일 금요일 오전 11:00</p>
-          <p className="event-location">신동탄포레자이아파트</p>
+          <div className="event-schedule">
+            <div className="time-title">
+              <span className="time-icon">📸</span>
+              <span>11:00 가족 단체 사진 촬영</span>
+            </div>
+            <div className="event-details">백일상 앞에서 소중한 순간을 기록해요</div>
+            <div className="location">📍 신동탄포레자이 101동 1604호</div>
+          </div>
+          
+          <div className="event-schedule">
+            <div className="time-title">
+              <span className="time-icon">🍽️</span>
+              <span>12:00 점심 식사</span>
+            </div>
+            <div className="event-details">함께 맛있는 식사를 나누며 축하해요</div>
+            <div className="location">📍 천지연</div>
+          </div>
         </EventInfo>
         
         <CalendarGrid>
@@ -430,6 +526,7 @@ const ContentSections: React.FC = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => setSelectedImage(image.src)}
             >
               <Image
                 src={image.src}
@@ -445,6 +542,34 @@ const ContentSections: React.FC = () => {
 
       {/* 하단 여백 */}
       <BottomSpacing />
+      
+      {/* 이미지 모달 */}
+      <AnimatePresence>
+        {selectedImage && (
+          <ImageModal
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+          >
+            <ModalImage
+              src={selectedImage}
+              alt="확대된 갤러리 이미지"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              onClick={(e) => e.stopPropagation()}
+            />
+            <CloseButton
+              onClick={() => setSelectedImage(null)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              ×
+            </CloseButton>
+          </ImageModal>
+        )}
+      </AnimatePresence>
     </ContentContainer>
   )
 }

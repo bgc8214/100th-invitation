@@ -19,7 +19,7 @@ const MainScreen = styled.div`
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  background: linear-gradient(180deg, #f8f9ff 0%, #f0f8ff 100%);
+  background: linear-gradient(180deg, #fce7f0 0%, #f8d7e5 100%);
   padding: 20px;
   display: flex;
   align-items: stretch;
@@ -51,7 +51,7 @@ const ContentScreen = styled.div`
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  background: linear-gradient(180deg, #f8f9ff 0%, #f0f8ff 100%);
+  background: linear-gradient(180deg, #fce7f0 0%, #f8d7e5 100%);
   padding: 20px;
   display: flex;
   align-items: stretch;
