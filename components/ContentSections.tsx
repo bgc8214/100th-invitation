@@ -705,8 +705,8 @@ const ContentSections: React.FC = () => {
                 goToPrevious();
               }}
               disabled={selectedImageIndex === 0}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05, y: "-50%" }}
+              whileTap={{ scale: 0.95, y: "-50%" }}
             >
               ‹
             </PrevButton>
@@ -717,8 +717,8 @@ const ContentSections: React.FC = () => {
                 goToNext();
               }}
               disabled={selectedImageIndex === galleryImages.length - 1}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05, y: "-50%" }}
+              whileTap={{ scale: 0.95, y: "-50%" }}
             >
               ›
             </NextButton>
