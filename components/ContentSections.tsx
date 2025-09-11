@@ -322,10 +322,10 @@ const CloseButton = styled(motion.button)`
   }
 `
 
-const NavButton = styled(motion.button)`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+const NavButton = styled.button`
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
   background: rgba(255, 255, 255, 0.9);
   border: none;
   border-radius: 50%;
@@ -339,9 +339,15 @@ const NavButton = styled(motion.button)`
   font-weight: bold;
   color: #333;
   z-index: 1001;
+  transition: all 0.2s ease;
   
   &:hover {
     background: rgba(255, 255, 255, 1);
+    transform: translateY(-50%) scale(1.05) !important;
+  }
+  
+  &:active {
+    transform: translateY(-50%) scale(0.95) !important;
   }
   
   &:disabled {
@@ -705,8 +711,6 @@ const ContentSections: React.FC = () => {
                 goToPrevious();
               }}
               disabled={selectedImageIndex === 0}
-              whileHover={{ scale: 1.05, y: "-50%" }}
-              whileTap={{ scale: 0.95, y: "-50%" }}
             >
               ‹
             </PrevButton>
@@ -717,8 +721,6 @@ const ContentSections: React.FC = () => {
                 goToNext();
               }}
               disabled={selectedImageIndex === galleryImages.length - 1}
-              whileHover={{ scale: 1.05, y: "-50%" }}
-              whileTap={{ scale: 0.95, y: "-50%" }}
             >
               ›
             </NextButton>
