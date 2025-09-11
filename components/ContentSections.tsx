@@ -322,6 +322,61 @@ const CloseButton = styled(motion.button)`
   }
 `
 
+const NavButton = styled(motion.button)`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  z-index: 1001;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 768px) {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+`
+
+const PrevButton = styled(NavButton)`
+  left: 20px;
+`
+
+const NextButton = styled(NavButton)`
+  right: 20px;
+`
+
+const ImageCounter = styled.div`
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+`
+
 interface TimeLeft {
   days: number;
   hours: number;
@@ -337,7 +392,9 @@ const ContentSections: React.FC = () => {
     seconds: 0
   });
   
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   useEffect(() => {
     const targetDate = new Date('2025-09-19T11:00:00').getTime();
@@ -375,6 +432,76 @@ const ContentSections: React.FC = () => {
     { src: `${basePath}/images/gallery8.png`, alt: '백설하 사진 8' },
     { src: `${basePath}/images/gallery9.png`, alt: '백설하 사진 9' },
   ];
+
+  // 갤러리 네비게이션 함수들
+  const openModal = (index: number) => {
+    setSelectedImageIndex(index);
+  };
+
+  const closeModal = () => {
+    setSelectedImageIndex(null);
+  };
+
+  const goToPrevious = () => {
+    if (selectedImageIndex !== null && selectedImageIndex > 0) {
+      setSelectedImageIndex(selectedImageIndex - 1);
+    }
+  };
+
+  const goToNext = () => {
+    if (selectedImageIndex !== null && selectedImageIndex < galleryImages.length - 1) {
+      setSelectedImageIndex(selectedImageIndex + 1);
+    }
+  };
+
+  // 스와이프 기능
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      goToNext();
+    } else if (isRightSwipe) {
+      goToPrevious();
+    }
+  };
+
+  // 키보드 네비게이션
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      
+      if (e.key === 'Escape') {
+        closeModal();
+      } else if (e.key === 'ArrowLeft') {
+        goToPrevious();
+      } else if (e.key === 'ArrowRight') {
+        goToNext();
+      }
+    };
+
+    if (selectedImageIndex !== null) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedImageIndex]);
 
   const calendarDates = [
     '', '1', '2', '3', '4', '5', '6',
@@ -534,7 +661,7 @@ const ContentSections: React.FC = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setSelectedImage(image.src)}
+              onClick={() => openModal(index)}
             >
               <Image
                 src={image.src}
@@ -553,28 +680,63 @@ const ContentSections: React.FC = () => {
       
       {/* 이미지 모달 */}
       <AnimatePresence>
-        {selectedImage && (
+        {selectedImageIndex !== null && (
           <ImageModal
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
+            onClick={closeModal}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
           >
             <ModalImage
-              src={selectedImage}
-              alt="확대된 갤러리 이미지"
+              src={galleryImages[selectedImageIndex].src}
+              alt={galleryImages[selectedImageIndex].alt}
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
               onClick={(e) => e.stopPropagation()}
             />
+            
+            <PrevButton
+              onClick={(e) => {
+                e.stopPropagation();
+                goToPrevious();
+              }}
+              disabled={selectedImageIndex === 0}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              ‹
+            </PrevButton>
+            
+            <NextButton
+              onClick={(e) => {
+                e.stopPropagation();
+                goToNext();
+              }}
+              disabled={selectedImageIndex === galleryImages.length - 1}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              ›
+            </NextButton>
+            
             <CloseButton
-              onClick={() => setSelectedImage(null)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                closeModal();
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               ×
             </CloseButton>
+            
+            <ImageCounter>
+              {selectedImageIndex + 1} / {galleryImages.length}
+            </ImageCounter>
           </ImageModal>
         )}
       </AnimatePresence>

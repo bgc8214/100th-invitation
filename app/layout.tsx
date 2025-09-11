@@ -17,6 +17,21 @@ export const metadata: Metadata = {
     title: '백설하 100일 잔치 초대장',
     description: '백설하의 소중한 100일을 함께 축하해주세요',
     type: 'website',
+    images: [
+      {
+        url: '/images/main.png',
+        width: 1200,
+        height: 630,
+        alt: '백설하 100일 잔치 초대장',
+      },
+    ],
+    siteName: '백설하 100일 잔치',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '백설하 100일 잔치 초대장',
+    description: '백설하의 소중한 100일을 함께 축하해주세요',
+    images: ['/images/main.png'],
   },
 }
 
