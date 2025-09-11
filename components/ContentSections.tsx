@@ -243,8 +243,13 @@ const PhotoGrid = styled.div`
   gap: 10px;
   
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
   }
 `
 
@@ -366,6 +371,9 @@ const ContentSections: React.FC = () => {
     { src: `${basePath}/images/gallery4.png`, alt: '백설하 사진 4' },
     { src: `${basePath}/images/gallery5.png`, alt: '백설하 사진 5' },
     { src: `${basePath}/images/gallery6.png`, alt: '백설하 사진 6' },
+    { src: `${basePath}/images/gallery7.png`, alt: '백설하 사진 7' },
+    { src: `${basePath}/images/gallery8.png`, alt: '백설하 사진 8' },
+    { src: `${basePath}/images/gallery9.png`, alt: '백설하 사진 9' },
   ];
 
   const calendarDates = [
