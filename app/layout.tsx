@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     url: 'https://bgc8214.github.io/100th-invitation/',
     images: [
       {
-        url: 'https://bgc8214.github.io/100th-invitation/images/main.png',
-        width: 1200,
-        height: 630,
+        url: 'https://bgc8214.github.io/100th-invitation/images/main_logo.png',
+        width: 800,
+        height: 400,
         alt: '백설하 100일 잔치 초대장',
         type: 'image/png',
       },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '백설하 100일 잔치 초대장',
     description: '백설하의 소중한 100일을 함께 축하해주세요',
-    images: ['https://bgc8214.github.io/100th-invitation/images/main.png'],
+    images: ['https://bgc8214.github.io/100th-invitation/images/main_logo.png'],
     creator: '@백설하가족',
   },
 }
@@ -50,9 +50,9 @@ export default function RootLayout({
         {/* 카카오톡 및 소셜 미디어 메타 태그 */}
         <meta property="og:title" content="백설하 100일 잔치 초대장" />
         <meta property="og:description" content="백설하의 소중한 100일을 함께 축하해주세요" />
-        <meta property="og:image" content="https://bgc8214.github.io/100th-invitation/images/main.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image" content="https://bgc8214.github.io/100th-invitation/images/main_logo.png" />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="400" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:url" content="https://bgc8214.github.io/100th-invitation/" />
         <meta property="og:type" content="website" />
@@ -63,12 +63,17 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="백설하 100일 잔치 초대장" />
         <meta name="twitter:description" content="백설하의 소중한 100일을 함께 축하해주세요" />
-        <meta name="twitter:image" content="https://bgc8214.github.io/100th-invitation/images/main.png" />
+        <meta name="twitter:image" content="https://bgc8214.github.io/100th-invitation/images/main_logo.png" />
         
         {/* 카카오톡 특화 메타 태그 */}
         <meta name="title" content="백설하 100일 잔치 초대장" />
         <meta name="description" content="백설하의 소중한 100일을 함께 축하해주세요" />
-        <meta name="image" content="https://bgc8214.github.io/100th-invitation/images/main.png" />
+        <meta name="image" content="https://bgc8214.github.io/100th-invitation/images/main_logo.png" />
+        
+        {/* 추가 카카오톡 메타 태그 */}
+        <meta property="kakao:title" content="백설하 100일 잔치 초대장" />
+        <meta property="kakao:description" content="백설하의 소중한 100일을 함께 축하해주세요" />
+        <meta property="kakao:image" content="https://bgc8214.github.io/100th-invitation/images/main_logo.png" />
       </head>
       <body className={notoSansKR.className}>
         <StyledComponentsRegistry>
