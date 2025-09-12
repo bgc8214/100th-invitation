@@ -34,6 +34,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        {/* 카카오톡 전용 메타 태그 */}
+        <meta name="title" content="백설하 100일 잔치 초대장" />
+        <meta name="description" content="백설하의 소중한 100일을 함께 축하해주세요" />
+        <meta name="image" content="https://bgc8214.github.io/100th-invitation/images/main.png" />
+        
+        {/* 추가 카카오톡 호환성 태그 */}
+        <meta property="og:site_name" content="백설하 100일 잔치" />
+        <meta property="og:locale" content="ko_KR" />
+        
+        {/* 카카오톡 스크래핑 강제 새로고침을 위한 추가 태그 */}
+        <meta name="robots" content="index,follow" />
+        <meta name="googlebot" content="index,follow" />
+      </head>
       <body className={notoSansKR.className}>
         <StyledComponentsRegistry>
           {children}
