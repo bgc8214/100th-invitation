@@ -14,7 +14,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: '백설하 100일 잔치 초대장',
     description: '백설하의 소중한 100일을 함께 축하해주세요',
-    images: ['https://bgc8214.github.io/100th-invitation/images/main.png'],
+    type: 'website',
+    url: 'https://bgc8214.github.io/100th-invitation/',
+    images: [
+      {
+        url: 'https://bgc8214.github.io/100th-invitation/images/main.png',
+        width: 1200,
+        height: 630,
+        alt: '백설하 100일 잔치 초대장',
+      },
+    ],
   },
 }
 
